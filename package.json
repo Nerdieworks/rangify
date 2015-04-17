@@ -1,0 +1,38 @@
+{
+  "name": "rangify",
+  "version": "0.1.0",
+  "description": "Create range iterator from start/stop, string, or array.",
+  "main": "lib/rangify.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel lib/rangify.js > es5/rangify.js",
+    "test": "./node_modules/.bin/babel-node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nerdieworks/rangify.git"
+  },
+  "keywords": [
+    "parse",
+    "range",
+    "from",
+    "string",
+    "array",
+    "generator",
+    "iterator"
+  ],
+  "author": "Maurits van Mastrigt <maurits@nerdieworks.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nerdieworks/rangify/issues"
+  },
+  "homepage": "https://github.com/Nerdieworks/rangify",
+  "dependencies": {
+    "merge": "^1.2.0",
+    "tiny-range": "0.0.3"
+  },
+  "devDependencies": {
+    "babel": "^5.1.10",
+    "range": "0.0.2",
+    "should": "^6.0.1"
+  }
+}
