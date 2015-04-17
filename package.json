@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Nerdieworks/rangify",
   "dependencies": {
-    "merge": "^1.2.0",
+    "extend": "^2.0.0",
     "tiny-range": "0.0.3"
   },
   "devDependencies": {

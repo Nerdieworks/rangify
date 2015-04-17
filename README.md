@@ -1,4 +1,4 @@
-# Rangify (for ES6, with ES5 compatibility)
+# Rangify (for ES6, with [ES5 compatibility](#user-content-ecmascript-5))
 
 > Create range iterator from start/stop, string, or array.
 
@@ -10,7 +10,6 @@ Install by running `$ npm install rangify --save` and the parse a range. This pa
 
 ```js
 import range, {Range} from 'rangify'
-// or: var range = require('rangify/es5').default
 
 let iter, next
 
@@ -26,10 +25,10 @@ for (let i of range('2~10', 2)) {
 
 // Helper function
 iter = range('1, 3-5')    // from string
-iter = range([1, [3, 5]]) // by array,
+iter = range([1, [3, 5]]) // by array
 
 // Iterating
-next = iter.next // saves us some typing :)
+next = iter.next // save some keystrokes :)
 
 iter.next().value // 1
 next().value // 3
@@ -50,6 +49,21 @@ for (let i of range('0-3, 100~')) {
 ```
 
 Also see [Iteration Protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) for more info about JavaScript iterators.
+
+## ECMAScript 5
+
+No ES6 for you? Bummer, but you can still use rangify:
+
+```js
+var range = require('rangify/es5')
+var Range = range.Range
+var next  = range('1~10').next
+var item
+
+while (item = next().value) {
+	console.log(item)
+}
+```
 
 ## Contributing
 
