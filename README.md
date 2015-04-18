@@ -2,7 +2,7 @@
 
 > Create range iterator from start/stop, string, or array.
 
-Rangify uses __inclusive ranges__ (the last number is included) by default, because it will most likely parse user input. You go try to explaining [exclusive ranges](http://stackoverflow.com/questions/4504662/why-does-rangestart-end-not-include-end) to a customer.
+Rangify uses __inclusive ranges__ (the last number is included) by default, because it will most likely parse user input. You go try to explain [exclusive ranges](http://stackoverflow.com/questions/4504662/why-does-rangestart-end-not-include-end) to a customer..
 
 ## How to use
 
@@ -39,12 +39,12 @@ next() // { value: undefined, done: true }
 iter = range('-10~10')
 
 for (let i of iter) {
-	// i = -10, -9, ..., 8, 9
+	// i = -10, -9, ..., 9, 10
 }
 
 // Infinite ranges
 for (let i of range('0-3, 100~')) {
-	// i = 0, 1, 2, 100, 101, 102, 103, etc.
+	// i = 0, 1, 2, 3, 100, 101, 102, 103, etc.
 }
 ```
 
