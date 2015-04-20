@@ -1,6 +1,6 @@
 {
   "name": "rangify",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create range iterator from start/stop, string, or array.",
   "main": "lib/rangify.js",
   "scripts": {
