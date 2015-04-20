@@ -11,16 +11,16 @@ Install by running `$ npm install rangify --save` and the parse a range. This pa
 ```js
 import range, {Range} from 'rangify'
 
-let iter, next
+let iter
 
 // Basic example
 for (let i of new Range(2, 10, 2)) {
-	console.log(i) // i = 2, 4, 6, 8, 10
+	console.log(i) // 2, 4, 6, 8, 10
 }
 
 // Equivalent
 for (let i of range('2~10', 2)) {
-	// ..
+	console.log(i) // 2, 4, 6, 8, 10
 }
 
 // Helper function
@@ -28,23 +28,23 @@ iter = range('1, 3-5')    // from string
 iter = range([1, [3, 5]]) // by array
 
 // Iterating
-next = iter.next // save some keystrokes :)
-
 iter.next().value // 1
-next().value // 3
-next().value // 4
-next() // { value: undefined, done: true }
+iter.next().value // 3
+iter.next().value // 4
+iter.next().value // 5
+iter.next() // { value: undefined, done: true }
 
 // For loops
 iter = range('-10~10')
 
 for (let i of iter) {
-	// i = -10, -9, ..., 9, 10
+	console.log(i) // -10, -9, ..., 9, 10
 }
 
 // Infinite ranges
 for (let i of range('0-3, 100~')) {
-	// i = 0, 1, 2, 3, 100, 101, 102, 103, etc.
+	console.log(i) // 0, 1, 2, 3, 100, 101, 102, 103, etc.
+	if (i > 110) break
 }
 ```
 
@@ -52,15 +52,20 @@ Also see [Iteration Protocols](https://developer.mozilla.org/en-US/docs/Web/Java
 
 ## ECMAScript 5
 
-No ES6 for you? Bummer, but you can still use rangify:
+No ES6 for you? Bummer, however you can still use rangify! You only need to include the BabelJS polyfill for this:
 
 ```js
-var range = require('rangify/es5')
-var Range = range.Range
-var next  = range('1~10').next
+// $ npm install babel-core --save
+require('babel-core/polyfill')
+
+var rangify = require('rangify/es5')
+var range   = rangify['default']
+var Range   = rangify.Range
+
+var iter = range('1~10')
 var item
 
-while (item = next().value) {
+while (item = iter.next().value) {
 	console.log(item)
 }
 ```
@@ -75,4 +80,5 @@ cd rangify/
 npm install
 npm test
 npm run build && npm test -- --es5 // for ES5
+// "git add" etc.
 ```
