@@ -1,7 +1,7 @@
 {
   "name": "rangify",
-  "version": "0.2.0",
-  "description": "Create range iterator from start/stop, string, or array.",
+  "version": "0.2.1",
+  "description": "Create ES6 range iterator from start/stop number, string, or array.",
   "main": "lib/rangify.js",
   "scripts": {
     "build": "./node_modules/.bin/babel lib/rangify.js > polyfill/index.js",

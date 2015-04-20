@@ -1,6 +1,6 @@
 # Rangify (for ES6, with [ES5 compatibility](#user-content-ecmascript-5))
 
-> Create range iterator from start/stop, string, or array.
+> Create ES6 range iterator from start/stop number, string, or array.
 
 Rangify uses __inclusive ranges__ (the last number is included) by default, because it will most likely parse user input. You go try to explain [exclusive ranges](http://stackoverflow.com/questions/4504662/why-does-rangestart-end-not-include-end) to a customer..
 
