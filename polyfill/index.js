@@ -29,7 +29,7 @@ var Range = (function () {
 			args[_key - 1] = arguments[_key];
 		}
 
-		var start = arguments[0] === undefined ? 1 : arguments[0];
+		var start = arguments[0] === undefined ? 0 : arguments[0];
 
 		_classCallCheck(this, Range);
 
