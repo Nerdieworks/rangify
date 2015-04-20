@@ -2,7 +2,7 @@
 
 > Create ES6 range iterator from start/stop number, string, or array.
 
-Rangify uses __inclusive ranges__ (the last number is included) by default, because it will most likely parse user input. You go try to explain [exclusive ranges](http://stackoverflow.com/questions/4504662/why-does-rangestart-end-not-include-end) to a customer..
+Rangify uses [exclusive ranges](http://stackoverflow.com/questions/4504662/why-does-rangestart-end-not-include-end) (the last number is excluded).
 
 ## How to use
 
@@ -15,12 +15,12 @@ let iter
 
 // Basic example
 for (let i of new Range(2, 10, 2)) {
-	console.log(i) // 2, 4, 6, 8, 10
+	console.log(i) // 2, 4, 6, 8
 }
 
 // Equivalent
 for (let i of range('2~10', 2)) {
-	console.log(i) // 2, 4, 6, 8, 10
+	console.log(i) // 2, 4, 6, 8
 }
 
 // Helper function
@@ -31,20 +31,25 @@ iter = range([1, [3, 5]]) // by array
 iter.next().value // 1
 iter.next().value // 3
 iter.next().value // 4
-iter.next().value // 5
 iter.next() // { value: undefined, done: true }
 
 // For loops
 iter = range('-10~10')
 
 for (let i of iter) {
-	console.log(i) // -10, -9, ..., 9, 10
+	console.log(i) // -10, -9, …, 8, 9
 }
 
 // Infinite ranges
 for (let i of range('0-3, 100~')) {
-	console.log(i) // 0, 1, 2, 3, 100, 101, 102, 103, etc.
+	console.log(i) // 0, 1, 2, 3, 100, 101, 102, …
 	if (i > 110) break
+}
+
+// Step ranges
+for (let i of range('0~3, 6~10, 50~', 2)) {
+	console.log(i) // 0, 2, 6, 8, 10, 50, 52, 54, …
+	if (i > 60) break
 }
 ```
 
@@ -66,7 +71,7 @@ var iter = range('1~10')
 var item
 
 while (item = iter.next().value) {
-	console.log(item)
+	console.log(item) // 1, 2, …, 8, 9
 }
 ```
 

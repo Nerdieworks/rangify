@@ -5,7 +5,7 @@ let iter, r, j
 
 // Load Rangify
 let es5Mode = (process.argv.filter((flag) => flag === '--es5').length > 0)
-let {default: range, Range} = require(es5Mode ? './es5' : './lib/rangify')
+let {default: range, Range} = require(es5Mode ? './polyfill' : './lib/rangify')
 
 // 1. Types
 // 1.1. Range class/helper
@@ -79,8 +79,7 @@ let equal_values = (iter, values) => {
 	}
 }
 
-// NOTE: stop + 1 to make inclusive range.
-let make_range = (start, stop) => rangeArray(start, stop + 1)
+let make_range = (start, stop, inclusive = false) => rangeArray(start, stop + !!inclusive)
 
 // 3.1. Iterator (through for..of)
 j = 1
@@ -88,18 +87,18 @@ for (let i of new Range('1~10')) {
 	should(i).equal(j)
 	++j
 }
-should(j).equal(11)
+should(j).equal(10)
 
 j = 1
 for (let i of range('1~10')) {
 	should(i).equal(j)
 	++j
 }
-should(j).equal(11)
+should(j).equal(10)
 
 // 3.1. Positive
 iter = range('1~10')
-for (let i = 1; i <= 10; ++i) {
+for (let i = 1; i < 10; ++i) {
 	is_next(iter, i)
 }
 is_done(iter)
@@ -127,8 +126,8 @@ for (let i = 0; i < 10000; ++i) {
 iter = range('-10~-5, 2~3, 4~6, 10~20')
 equal_values(
 	iter,
-	make_range(-10, -5)
-		.concat(make_range(2, 6))
+	make_range(-10, -5, true)
+		.concat(make_range(2, 6, true))
 		.concat(make_range(10, 20))
 )
 

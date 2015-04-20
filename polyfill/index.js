@@ -82,7 +82,7 @@ var Range = (function () {
 						i += step;
 
 					case 7:
-						if (!(i > curr[1])) {
+						if (!(i >= curr[1] + (range.length > 0))) {
 							context$2$0.next = 14;
 							break;
 						}
@@ -125,4 +125,9 @@ exports['default'] = function () {
 
 	return new (_bind.apply(Range, [null].concat(args)))()[Symbol.iterator]();
 };
+
+// Using >= instead of > makes the range *exclusive*.
+// Add one (int(range.length > 0)) to the maximum when it's
+// not the last subrange, to only exclude the very last number
+// in the range.
 
