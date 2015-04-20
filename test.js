@@ -8,6 +8,11 @@ let es5Mode = (process.argv.filter((flag) => flag === '--es5').length > 0)
 let {default: range, Range} = require(es5Mode ? './polyfill' : './lib/rangify')
 
 // 1. Types
+let test_inclusive = (range, inclusive = true) => {
+	should(range.inclusive).be.a.Boolean
+	should(range.inclusive).equal(inclusive)
+}
+
 // 1.1. Range class/helper
 should(Range).be.a.Class
 should(range).be.a.Function
@@ -19,8 +24,27 @@ should(iter.next).be.a.Function
 
 // 1.3. Properties
 r = new Range('1~3')
-should(r.range).be.a.Array
-should(r.step).be.a.Number
+should(r.range).be.a.array
+should(r.step).be.a.number
+
+// 1.4. Inclusive and exclusive
+test_inclusive(new Range(1, 3, true))
+test_inclusive(new Range('1~3', true))
+test_inclusive(new Range([[1, 3]], true))
+
+test_inclusive(new Range(1, 3, false), false)
+test_inclusive(new Range('1~3', false), false)
+
+// Defaults
+test_inclusive(new Range(1, 3), false)
+test_inclusive(new Range('1~3'), false)
+
+// With step
+test_inclusive(new Range(1, 30, 3, true))
+test_inclusive(new Range('1~30', 3, true))
+
+test_inclusive(new Range(1, 30, 3), false)
+test_inclusive(new Range('1~30', 3), false)
 
 // 2. Ranges
 let test_range = (r, expected) => {
@@ -77,6 +101,7 @@ let equal_values = (iter, values) => {
 	for (let i of iter) {
 		should(i).equal(values.shift())
 	}
+	should(values.length).equal(0)
 }
 
 let make_range = (start, stop, inclusive = false) => rangeArray(start, stop + !!inclusive)
@@ -117,7 +142,6 @@ equal_values(iter, make_range(-100, -90))
 // 3.4. Infinity
 iter = range('0~')
 
-// TODO(mauvm): Figure out way to properly test this.
 for (let i = 0; i < 10000; ++i) {
 	should(iter.next().value).equal(i)
 }
@@ -131,7 +155,23 @@ equal_values(
 		.concat(make_range(10, 20))
 )
 
-// 3.6. Steps
+// 3.6. Inclusive
+iter = range('3~6', true)
+equal_values(
+	iter,
+	make_range(3, 6, true)
+)
+is_done(iter)
+
+iter = range('-3~2, 10~20', true)
+equal_values(
+	iter,
+	make_range(-3, 2, true)
+		.concat(make_range(10, 20, true))
+)
+is_done(iter)
+
+// 3.7. Steps
 
 // Done
 console.log('Great success!')

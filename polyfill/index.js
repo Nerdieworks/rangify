@@ -25,24 +25,29 @@ _parser2['default'].options = _extend2['default']({}, _parser2['default'].option
 
 var Range = (function () {
 	function Range() {
+		for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+			args[_key - 1] = arguments[_key];
+		}
+
 		var start = arguments[0] === undefined ? 1 : arguments[0];
-		var stop = arguments[1] === undefined ? null : arguments[1];
-		var step = arguments[2] === undefined ? 1 : arguments[2];
 
 		_classCallCheck(this, Range);
 
-		var range = undefined;
+		var range = undefined,
+		    step = 1,
+		    inclusive = false;
 
 		if (typeof start === 'string') {
 			range = _parser2['default'].parse(start);
-			step = stop || step;
 		} else if (Array.isArray(start)) {
 			range = start;
-			step = stop || step;
 		} else {
-			if (stop === null) stop = Infinity;
-			range = [[start, stop]];
+			var _stop = args.shift();
+			if (typeof _stop !== 'number') _stop = Infinity;
+			range = [[start, _stop]];
 		}
+		if (typeof args[0] === 'number') step = args.shift();
+		if (typeof args[0] === 'boolean') inclusive = args.shift();
 
 		range = range.map(function (i) {
 			return Array.isArray(i) ? i : [i, i];
@@ -50,6 +55,7 @@ var Range = (function () {
 
 		this._range = range;
 		this._step = step;
+		this.inclusive = inclusive;
 	}
 
 	_createClass(Range, [{
@@ -82,7 +88,7 @@ var Range = (function () {
 						i += step;
 
 					case 7:
-						if (!(i >= curr[1] + (range.length > 0))) {
+						if (!(i >= curr[1] + !!(range.length || this.inclusive))) {
 							context$2$0.next = 14;
 							break;
 						}
@@ -119,15 +125,14 @@ var Range = (function () {
 exports.Range = Range;
 
 exports['default'] = function () {
-	for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-		args[_key] = arguments[_key];
+	for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+		args[_key2] = arguments[_key2];
 	}
 
 	return new (_bind.apply(Range, [null].concat(args)))()[Symbol.iterator]();
 };
 
 // Using >= instead of > makes the range *exclusive*.
-// Add one (int(range.length > 0)) to the maximum when it's
-// not the last subrange, to only exclude the very last number
-// in the range.
+// Add one (int(true) === 1) to the maximum when it's
+// not the last subrange or the range should be inclusive.
 

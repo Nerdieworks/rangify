@@ -11,7 +11,7 @@ Install by running `$ npm install rangify --save` and the parse a range. This pa
 ```js
 import range, {Range} from 'rangify'
 
-let iter
+let iter, r
 
 // Basic example
 for (let i of new Range(2, 10, 2)) {
@@ -33,20 +33,29 @@ iter.next().value // 3
 iter.next().value // 4
 iter.next() // { value: undefined, done: true }
 
-// For loops
+// For..of loops
 iter = range('-10~10')
 
 for (let i of iter) {
 	console.log(i) // -10, -9, …, 8, 9
 }
 
-// Infinite ranges
-for (let i of range('0-3, 100~')) {
+// Infinite
+for (let i of range('0~3, 100~')) {
 	console.log(i) // 0, 1, 2, 3, 100, 101, 102, …
 	if (i > 110) break
 }
 
-// Step ranges
+// Inclusive
+for (let i of range('0~3', true)) {
+	console.log(i) // 0, 1, 2, 3
+}
+
+r = new Range('0~3', true)
+console.log(r.inclusive) // true
+r.inclusive = false      // exclusive again
+
+// Step
 for (let i of range('0~3, 6~10, 50~', 2)) {
 	console.log(i) // 0, 2, 6, 8, 10, 50, 52, 54, …
 	if (i > 60) break
