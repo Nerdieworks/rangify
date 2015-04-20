@@ -58,7 +58,7 @@ No ES6 for you? Bummer, however you can still use rangify! You only need to incl
 // $ npm install babel --global
 require('babel/polyfill')
 
-var rangify = require('rangify/es5')
+var rangify = require('rangify/polyfill')
 var range   = rangify['default']
 var Range   = rangify.Range
 
