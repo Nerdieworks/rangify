@@ -55,8 +55,8 @@ Also see [Iteration Protocols](https://developer.mozilla.org/en-US/docs/Web/Java
 No ES6 for you? Bummer, however you can still use rangify! You only need to include the BabelJS polyfill for this:
 
 ```js
-// $ npm install babel-core --save
-require('babel-core/polyfill')
+// $ npm install babel --global
+require('babel/polyfill')
 
 var rangify = require('rangify/es5')
 var range   = rangify['default']
