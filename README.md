@@ -24,8 +24,9 @@ for (let i of range('2~10', 2)) {
 }
 
 // Helper function
-iter = range('1, 3-5')    // from string
-iter = range([1, [3, 5]]) // by array
+iter = range(1, 5)        // start/stop number (continuous range)
+iter = range('1, 3-5')    // string
+iter = range([1, [3, 5]]) // array
 
 // Iterating
 iter.next().value // 1
