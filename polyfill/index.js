@@ -53,6 +53,8 @@ var Range = (function () {
 			return Array.isArray(i) ? i : [i, i];
 		});
 
+		this._isFinite = range[0][0] !== -Infinity && range[range.length - 1][1] !== Infinity;
+
 		this._range = range;
 		this._step = step;
 		this.inclusive = inclusive;
@@ -67,6 +69,11 @@ var Range = (function () {
 		key: 'step',
 		get: function () {
 			return this._step;
+		}
+	}, {
+		key: 'isFinite',
+		get: function () {
+			return this._isFinite;
 		}
 	}, {
 		key: Symbol.iterator,

@@ -47,11 +47,14 @@ test_inclusive(new Range(1, 30, 3), false)
 test_inclusive(new Range('1~30', 3), false)
 
 // 2. Ranges
-let test_range = (r, expected) => {
-	should.deepEqual(r.range, expected)
+let test_range = (range, expected) => {
+	should.deepEqual(range.range, expected)
 }
 let test_ranges = (ranges, expected) => {
 	ranges.forEach((r) => test_range(r, expected))
+}
+let test_finite = (range, expected = true) => {
+	should(range.isFinite).equal(expected)
 }
 
 // 2.1. Positive
@@ -88,6 +91,12 @@ test_ranges([
 // 2.4. Multiple
 test_range(new Range('1, 4~6, 10'), [[1, 1], [4, 6], [10, 10]])
 test_range(new Range('-10~5, 10~'), [[-10, 5], [10, Infinity]])
+
+// 2.5. isFinite
+test_finite(new Range('1, 4~6, 10'), true)
+test_finite(new Range('-3, 5'), true)
+test_finite(new Range('-10~5, 10~'), false)
+test_finite(new Range('~10'), false)
 
 // 3. Iterator
 let is_next = (iter, value, done = false) => {
