@@ -25,8 +25,14 @@ for (let i of range('2~10', 2)) {
 
 // Helper function
 iter = range(1, 5)        // start/stop number (continuous range)
-iter = range('1, 3-5')    // string
+iter = range('1, 3~5')    // string
 iter = range([1, [3, 5]]) // array
+
+// NOTE: [1, [3, 5]] will become [[1, 1], [3, 5]],
+// so [1, 3] equals '1, 3' and not '1~3'.
+
+// Positive ranges, with dashes instead of tildes
+iter = range('2, 4-6, 9-'.replace(/~/g, '').replace(/-/g, '~'))
 
 // Iterating
 iter.next().value // 1
