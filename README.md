@@ -47,13 +47,16 @@ for (let i of iter) {
 	console.log(i) // -10, -9, …, 8, 9
 }
 
-// Infinite
+// Infinite range
 for (let i of range('0~3, 100~')) {
 	console.log(i) // 0, 1, 2, 3, 100, 101, 102, …
 	if (i > 110) break
 }
 
-// Inclusive
+console.log(new Range('1, 5').isFinite)  // true 
+console.log(new Range('1, 5~').isFinite) // false
+
+// Inclusive range
 for (let i of range('0~3', true)) {
 	console.log(i) // 0, 1, 2, 3
 }
@@ -62,7 +65,7 @@ r = new Range('0~3', true)
 console.log(r.inclusive) // true
 r.inclusive = false      // exclusive again
 
-// Step
+// Step range
 for (let i of range('0~3, 6~10, 50~', 2)) {
 	console.log(i) // 0, 2, 6, 8, 10, 50, 52, 54, …
 	if (i > 60) break
