@@ -181,6 +181,19 @@ equal_values(
 is_done(iter)
 
 // 3.7. Steps
+iter = range('1, 3~6, 8~11', 2, true) // inclusive
+equal_values(
+	iter,
+	[1, 3, 5, 9, 11]
+)
+is_done(iter)
+
+iter = range('1, 3~5, 8~9', 2) // exclusive
+equal_values(
+	iter,
+	[1, 3, 5]
+)
+is_done(iter)
 
 // Done
 console.log('Great success!')
